@@ -4,17 +4,17 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                echo 'Checkout Stage'
+                git 'https://github.com/shivakumar26011999/DataStore.git'
             }
         }
         stage('build') {
             steps {
-                echo 'Build Stage'
+                sh 'mvn clean package'
             }
         }
         stage('test') {
             steps {
-                echo 'Test Stage'
+                sh 'mvn test'
             }
         }
     }
