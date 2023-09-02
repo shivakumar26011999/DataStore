@@ -11,28 +11,42 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh 'mvn clean package'
+                sh '''
+                    echo "-------- Creating Jar --------"
+                    mvn clean package
+                    echo "-------- Jar Creation Complete --------"
+                '''
             }
         }
         stage('test') {
             steps {
-                sh 'mvn test'
+                sh '''
+                    echo "-------- Executing Testcases --------"
+                    mvn test
+                    echo "-------- Testcase Execution Complete --------"
+                '''
             }
         }
         stage('image-build') {
             steps {
                 script {
-                    sh 'docker build -t datastore:latest .'
+                    sh '''
+                        echo "-------- Building Docker Image --------"
+                        docker build -t datastore:latest .
+                        echo "-------- Building Docker Complete --------"
+                    '''
                 }
             }
         }
         stage('image-push') {
             steps {
                 sh '''
+                    echo "-------- Pushing Docker Image To DockerHub --------"
                     echo \'Logging to DockerHub\'
                     docker login -u $DOCKERHUB_CREDENTIALS_USR --password $DOCKERHUB_CREDENTIALS_PSW
                     docker tag datastore:latest 8072388539/datastore:latest
                     docker push 8072388539/datastore:latest
+                    echo "-------- Docker Image Pushed --------"
                 '''
             }
         }
