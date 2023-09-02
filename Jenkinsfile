@@ -9,12 +9,16 @@ pipeline {
         stage('build') {
             steps {
                 sh 'mvn clean package'
-//                 stash includes: 'target/*.jar', name: 'targetfile'
             }
         }
         stage('test') {
             steps {
                 sh 'mvn test'
+            }
+        }
+        stage('image-build') {
+            steps {
+                sh 'docker build -t datastore:latest .'
             }
         }
     }
