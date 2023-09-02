@@ -18,7 +18,9 @@ pipeline {
         }
         stage('image-build') {
             steps {
-                sh 'sudo docker build -t datastore:latest .'
+                script {
+                    sh 'sudo docker build -t datastore:latest .'
+                }
             }
         }
     }
