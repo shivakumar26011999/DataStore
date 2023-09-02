@@ -26,11 +26,12 @@ pipeline {
                 }
             }
         }
-        stage('image-login') {
+        stage('image-push') {
             steps {
                 sh '''
                     echo \'Logging to DockerHub\'
                     docker login -u $DOCKERHUB_CREDENTIALS_USR --password $DOCKERHUB_CREDENTIALS_PSW
+                    docker tag datastore:latest 8072388539/datastore:latest
                     docker push 8072388539/datastore:latest
                 '''
             }
