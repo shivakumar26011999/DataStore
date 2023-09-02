@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     stages {
         stage('checkout') {
             steps {
@@ -10,11 +9,12 @@ pipeline {
         stage('build') {
             steps {
                 sh 'mvn clean package'
+                stash includes: 'target/*.jar', name: 'targetfile'
             }
         }
         stage('test') {
             steps {
-                echo 'test'
+                sh 'mvn test'
             }
         }
     }
