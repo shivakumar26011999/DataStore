@@ -30,7 +30,7 @@ pipeline {
             steps {
                 sh '''
                     echo 'Logging to DockerHub.'
-                    sh $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 '''
             }
         }
