@@ -31,6 +31,7 @@ pipeline {
                 sh '''
                     echo \'Logging to DockerHub\'
                     docker login -u $DOCKERHUB_CREDENTIALS_USR --password $DOCKERHUB_CREDENTIALS_PSW
+                    docker push 8072388539/datastore:latest
                 '''
             }
         }
