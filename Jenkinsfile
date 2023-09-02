@@ -30,9 +30,9 @@ pipeline {
             steps {
                 sh '''
                     echo \'Logging to DockerHub\'
-                    echo \'SHivakumaR3@\' | docker login -u 8072388539 --password-stdin
-                    echo \'Pushing docker image\'
-                    docker push datastore:latest
+                    echo \'$DOCKERHUB_CREDENTIALS_PWD\' | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+//                     echo \'Pushing docker image\'
+//                     docker push datastore:latest
                 '''
             }
         }
