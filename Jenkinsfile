@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+    }
     stages {
         stage('checkout') {
             steps {
@@ -23,14 +26,12 @@ pipeline {
                 }
             }
         }
-        stage('image-push') {
+        stage('image-login') {
             steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-                        sh 'docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}'
-                        sh 'docker push ${env.dockerHubUser}/datastore:latest'
-                    }
-                }
+                sh '''
+                    echo 'Logging to DockerHub.'
+                    sh $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                '''
             }
         }
     }
