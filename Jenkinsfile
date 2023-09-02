@@ -28,8 +28,11 @@ pipeline {
         }
         stage('image-login') {
             steps {
-                sh '''echo \'Logging to DockerHub\'
-                echo \'SHivakumaR3@\' | docker login -u 8072388539 --password-stdin
+                sh '''
+                    echo \'Logging to DockerHub\'
+                    echo \'SHivakumaR3@\' | docker login -u 8072388539 --password-stdin
+                    echo \'Pushing docker image\'
+                    docker push 8072388539/datastore:latest
                 '''
             }
         }
