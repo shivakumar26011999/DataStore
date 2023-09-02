@@ -30,7 +30,7 @@ pipeline {
             steps {
                 sh '''
                     echo \'Logging to DockerHub\'
-                    echo \'$DOCKERHUB_CREDENTIALS_PWD\' | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+                    echo \'$DOCKERHUB_CREDENTIALS_PSW\' | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
 //                     echo \'Pushing docker image\'
 //                     docker push datastore:latest
                 '''
