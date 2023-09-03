@@ -36,7 +36,7 @@ pipeline {
                     sh '''
                         echo "-------- Building Docker Image --------"
                         docker build -t datastore:latest .
-                        echo ${params.App_Version}
+                        echo "${params.App_Version}"
 //                         docker build -t datastore:${params.App_Version} .
                         echo "-------- Building Docker Complete --------"
                     '''
