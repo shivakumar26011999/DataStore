@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.datastore</groupId>
 	<artifactId>datastore</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>DataStore</name>
 	<description>DataStore</description>
 	<properties>

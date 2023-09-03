@@ -3,6 +3,9 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS=credentials('dockerhub')
     }
+    parameters {
+        string(name: 'app_version', defaultValue: '', description: 'Application Version')
+    }
     stages {
         stage('checkout') {
             steps {
@@ -33,6 +36,7 @@ pipeline {
                     sh '''
                         echo "-------- Building Docker Image --------"
                         docker build -t datastore:latest .
+                        docker build -t datastore:${params.app_version} .
                         echo "-------- Building Docker Complete --------"
                     '''
                 }
@@ -46,6 +50,9 @@ pipeline {
                     docker login -u $DOCKERHUB_CREDENTIALS_USR --password $DOCKERHUB_CREDENTIALS_PSW
                     docker tag datastore:latest 8072388539/datastore:latest
                     docker push 8072388539/datastore:latest
+
+                    docker tag datastore:${params.app_version} 8072388539/datastore:${params.app_version}
+                    docker push 8072388539/datastore:${params.app_version}
                     echo "-------- Docker Image Pushed --------"
                 '''
             }

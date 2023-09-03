@@ -1,3 +1,6 @@
+git remote add origin https://github.com/cameronmcnz/example-website.git
+git push -u -f origin master
+
 ./mvnw validate -> Checks project structure is correct and all dependencies downloaded.
 ./mvnw compile -> Compiles source code and converts .java files to .class files.
 ./mvnw test -> Executes test cases.
