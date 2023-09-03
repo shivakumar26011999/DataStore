@@ -4,7 +4,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS=credentials('dockerhub')
     }
     parameters {
-
+        string(name: 'App_Version', defaultValue: '', description: 'Application Tag')
     }
     stages {
         stage('checkout') {
