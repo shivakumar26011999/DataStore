@@ -3,6 +3,9 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS=credentials('dockerhub')
     }
+    parameters {
+
+    }
     stages {
         stage('checkout') {
             steps {
