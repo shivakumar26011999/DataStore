@@ -52,6 +52,7 @@ pipeline {
                     docker tag datastore:latest 8072388539/datastore:latest
                     docker push 8072388539/datastore:latest
 
+                    docker tag datastore:"${App_Version}" 8072388539/datastore:"${App_Version}"
                     docker image prune --all
                     echo "-------- Docker Image Pushed --------"
                 '''
