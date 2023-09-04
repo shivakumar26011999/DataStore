@@ -61,7 +61,7 @@ pipeline {
         }
         stage('checkout-k8s-config') {
             steps {
-                git 'https://github.com/shivakumar26011999/DataStoreK8sConfig.git'
+                git 'git@github.com:shivakumar26011999/DataStoreK8sConfig.git'
             }
         }
         stage('updating-k8s-config') {
