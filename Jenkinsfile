@@ -61,7 +61,7 @@ pipeline {
         }
         stage('checkout-k8s-config') {
             steps {
-                git 'git@github.com:shivakumar26011999/DataStoreK8sConfig.git'
+                git 'https://github.com/shivakumar26011999/DataStoreK8sConfig.git'
             }
         }
         stage('updating-k8s-config') {
@@ -72,7 +72,8 @@ pipeline {
                     sed -i "s/datastore:.*/datastore:${App_Version}/" deployment.yaml
                     git add .
                     git commit -am "K8S configuration updated with new image version - ${App_Version}"
-                    git push --set-upstream origin master
+                    git remote set-url origin 'git@github.com:shivakumar26011999/DataStoreK8sConfig.git'
+                    git push
                 '''
             }
         }
