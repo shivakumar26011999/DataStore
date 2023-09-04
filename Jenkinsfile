@@ -70,7 +70,7 @@ pipeline {
                     echo "-------- Updating kubernetes config file --------"
                     sed -i "s/datastore:.*/datastore:${App_Version}/" deployment.yaml
                     git add .
-                    git commit -am "K8S configuration updated with new image version - ${App_Version}
+                    git commit -am "K8S configuration updated with new image version - ${App_Version}"
                     git push
                 '''
             }
