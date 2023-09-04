@@ -14,8 +14,3 @@ docker tag datastore:1.0 8072388539/datastore:v1.0
 docker push 8072388539/datastore:v1.0
 
 sed -i "" "s/nginx:1.1/busybox:1.2/" test
-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
-git remote set-url origin 'git@github.com:shivakumar26011999/DataStoreK8sConfig.git'
-
-git config --global user.email "gandheshiva9@gmail.com"
-git config --global user.name "shivakumar26011999"

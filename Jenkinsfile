@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+        GITHUB_CREDENTIALS=credentials('github')
     }
     parameters {
         string(name: 'App_Version', defaultValue: '', description: 'Application Tag')
@@ -75,6 +76,7 @@ pipeline {
                     sed -i "s/datastore:.*/datastore:${App_Version}/" deployment.yaml
                     git add .
                     git commit -am "K8S configuration updated with new image version - ${App_Version}"
+                    git remote add origin https://$GITHUB_CREDENTIALS_USR:$GITHUB_CREDENTIALS_PSW@shivakumar26011999/DataStoreK8sConfig.git
                     git push -u origin master
                 '''
             }
