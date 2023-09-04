@@ -59,5 +59,21 @@ pipeline {
                 '''
             }
         }
+        stage('checkout-k8s-config') {
+            steps {
+                git 'https://github.com/shivakumar26011999/DataStoreK8sConfig.git'
+            }
+        }
+        stage('updating-k8s-config') {
+            steps {
+                sh '''
+                    echo "-------- Updating kubernetes config file --------"
+                    sed -i "" "s/datastore:.*/datastore:${App_Version}/" deployment.yaml
+                    git add .
+                    git commit -am "K8S configuration updated with new image version - ${App_Version}
+                    git push
+                '''
+            }
+        }
     }
 }
