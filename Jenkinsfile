@@ -76,7 +76,7 @@ pipeline {
                     sed -i "s/datastore:.*/datastore:${App_Version}/" deployment.yaml
                     git add .
                     git commit -am "K8S configuration updated with new image version - ${App_Version}"
-                    git remote add origin https://$GITHUB_CREDENTIALS_USR:$GITHUB_CREDENTIALS_PSW@shivakumar26011999/DataStoreK8sConfig.git
+                    git remote add origin https://$GITHUB_CREDENTIALS_USR:$GITHUB_CREDENTIALS_PSW@github.com/shivakumar26011999/DataStoreK8sConfig.git
                     git push -u origin master
                 '''
             }
