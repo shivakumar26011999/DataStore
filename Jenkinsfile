@@ -75,7 +75,7 @@ pipeline {
                     git remote set-url origin 'git@github.com:shivakumar26011999/DataStoreK8sConfig.git'
                     git config --global user.email "gandheshiva9@gmail.com"
                     git config --global user.name "shivakumar26011999"
-                    git push
+                    git push --set-upstream origin master
                 '''
             }
         }
