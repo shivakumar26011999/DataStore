@@ -72,7 +72,7 @@ pipeline {
                     sed -i "s/datastore:.*/datastore:${App_Version}/" deployment.yaml
                     git add .
                     git commit -am "K8S configuration updated with new image version - ${App_Version}"
-                    git push
+                    git push --set-upstream origin master
                 '''
             }
         }
