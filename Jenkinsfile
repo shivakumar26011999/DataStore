@@ -68,6 +68,7 @@ pipeline {
             steps {
                 sh '''
                     echo "-------- Updating kubernetes config file --------"
+                    sudo rm -rf target
                     sed -i "s/datastore:.*/datastore:${App_Version}/" deployment.yaml
                     git add .
                     git commit -am "K8S configuration updated with new image version - ${App_Version}"
