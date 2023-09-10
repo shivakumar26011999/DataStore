@@ -37,6 +37,15 @@ pipeline {
                 '''
             }
         }
+        stage('static-code-analysis') {
+            steps {
+                sh '''
+                    echo "-------- Static Code Analysis --------"
+                    mvn clean package sonar:sonar
+                    echo "-------- Static Code Analysis Complete --------"
+                '''
+            }
+        }
         stage('image-build') {
             steps {
                 script {
