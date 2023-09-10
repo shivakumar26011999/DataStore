@@ -14,7 +14,7 @@ pipeline {
                 when { expression { params.Action == 'create' } }
             steps {
                 gitCheckout(
-                    branch: "master"
+                    branch: "master",
                     url: "https://github.com/shivakumar26011999/DataStore.git"
                 )
             }
