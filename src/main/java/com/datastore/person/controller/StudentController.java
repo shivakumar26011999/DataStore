@@ -24,7 +24,7 @@ public class StudentController {
     private ResponseEntity<Student> getStudent(@PathVariable("name") String name) {
         List<Student> stuList = studentList.stream().filter(stu ->
                 stu.getName().equals(name)
-                ).collect(Collectors.toList());
+        ).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(stuList.get(0));
     }
 }

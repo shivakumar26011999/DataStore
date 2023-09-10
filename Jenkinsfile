@@ -1,3 +1,4 @@
+@Library('my-shared-library') _
 pipeline {
     agent any
     environment {
@@ -5,12 +6,17 @@ pipeline {
         GITHUB_CREDENTIALS=credentials('github')
     }
     parameters {
+        choice(name: 'Action', choices: "create\ndelete", description: "Choose create/delete")
         string(name: 'App_Version', defaultValue: '', description: 'Application Tag')
     }
     stages {
         stage('checkout') {
+                when { expression { params.Action == 'create' } }
             steps {
-                git 'https://github.com/shivakumar26011999/DataStore.git'
+                gitCheckout(
+                    branch: "master"
+                    url: "https://github.com/shivakumar26011999/DataStore.git"
+                )
             }
         }
         stage('build') {
