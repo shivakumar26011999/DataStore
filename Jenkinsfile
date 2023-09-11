@@ -41,11 +41,7 @@ pipeline {
             def scannerHome = tool 'SonarScanner 5.0.2';
             steps {
                 withScannerQubeEnv('sonarqube') {
-                sh '''
-                    echo "-------- Static Code Analysis --------"
-                    mvn sonar:sonar
-                    echo "-------- Static Code Analysis Complete --------"
-                '''
+                sh 'mvn sonar:sonar'
                 }
             }
         }
