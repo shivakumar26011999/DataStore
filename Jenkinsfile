@@ -38,8 +38,8 @@ pipeline {
             }
         }
         stage('static-code-analysis') {
+            def scannerHome = tool 'SonarScanner 5.0.2';
             steps {
-                def scannerHome = tool 'SonarScanner 5.0.2';
                 withScannerQubeEnv('sonarqube') {
                 sh '''
                     echo "-------- Static Code Analysis --------"
