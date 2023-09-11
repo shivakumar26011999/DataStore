@@ -39,7 +39,7 @@ pipeline {
         }
         stage('static-code-analysis') {
             steps {
-                withScannerQubeEnv('sonarqube') {
+                withSonarQubeEnv('sonarqube') {
                 sh '''
                     echo "-------- Static Code Analysis --------"
                     mvn sonar:sonar
