@@ -39,11 +39,14 @@ pipeline {
         }
         stage('static-code-analysis') {
             steps {
+                def scannerHome = tool 'SonarScanner 5.0.2';
+                withScannerQubeEnv('sonarqube') {
                 sh '''
                     echo "-------- Static Code Analysis --------"
-                    mvn clean package sonar:sonar
+                    mvn sonar:sonar
                     echo "-------- Static Code Analysis Complete --------"
                 '''
+                }
             }
         }
         stage('image-build') {
