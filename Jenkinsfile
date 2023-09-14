@@ -65,7 +65,7 @@ pipeline {
                 script {
                     dockerImageScan(
                         project: "datastore",
-                        imageTag: "${params.App_Version}"
+                        imageTag: "${App_Version}"
                     )
                 }
             }
