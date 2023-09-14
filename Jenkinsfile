@@ -37,17 +37,17 @@ pipeline {
                 '''
             }
         }
-        stage('static-code-analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                sh '''
-                    echo "-------- Static Code Analysis --------"
-                    mvn sonar:sonar
-                    echo "-------- Static Code Analysis Complete --------"
-                '''
-                }
-            }
-        }
+//         stage('static-code-analysis') {
+//             steps {
+//                 withSonarQubeEnv('sonarqube') {
+//                 sh '''
+//                     echo "-------- Static Code Analysis --------"
+//                     mvn sonar:sonar
+//                     echo "-------- Static Code Analysis Complete --------"
+//                 '''
+//                 }
+//             }
+//         }
         stage('image-build') {
             steps {
                 script {
@@ -57,6 +57,16 @@ pipeline {
                         docker build -t datastore:latest .
                         echo "-------- Building Docker Complete --------"
                     '''
+                }
+            }
+        }
+        stage("image-scan") {
+            steps {
+                script {
+                    dockerImageScan(
+                        project: "datastore",
+                        imageTag: "${params.App_Version}"
+                    )
                 }
             }
         }
