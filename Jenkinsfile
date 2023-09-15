@@ -65,7 +65,8 @@ pipeline {
                 script {
                     dockerImageScan(
                         project: "datastore",
-                        imageTag: "${App_Version}"
+                        imageTag: "${App_Version}",
+                        hubUser: "8072388539"
                     )
                 }
             }
