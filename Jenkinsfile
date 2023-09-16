@@ -65,7 +65,8 @@ pipeline {
                 script {
                     sh '''
                        echo "-------- Docker Image Scanning --------"
-                       trivy image datastore:"${App_Version}"
+                       trivy image datastore:"${App_Version}" > scan.txt
+                       cat scan.txt
                        echo "-------- Docker Image Scan Complete --------"
                     '''
                 }
