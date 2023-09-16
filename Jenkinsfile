@@ -37,17 +37,17 @@ pipeline {
                 '''
             }
         }
-//         stage('static-code-analysis') {
-//             steps {
-//                 withSonarQubeEnv('sonarqube') {
-//                 sh '''
-//                     echo "-------- Static Code Analysis --------"
-//                     mvn sonar:sonar
-//                     echo "-------- Static Code Analysis Complete --------"
-//                 '''
-//                 }
-//             }
-//         }
+        stage('static-code-analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                sh '''
+                    echo "-------- Static Code Analysis --------"
+                    mvn sonar:sonar
+                    echo "-------- Static Code Analysis Complete --------"
+                '''
+                }
+            }
+        }
         stage('image-build') {
             steps {
                 script {
@@ -62,19 +62,19 @@ pipeline {
         }
         stage("image-scan") {
             steps {
-//                 script {
-//                     sh '''
-//                        echo "-------- Docker Image Scanning --------"
-//                        trivy image datastore:"${App_Version}"
-//                        echo "-------- Docker Image Scan Complete --------"
-//                     '''
-//                 }
                 script {
-                    dockerImageScan(
-                        project: "datastore",
-                        imageTag: "v1.2",
-                        hubUser: "8072388539"
-                    )
+                    sh '''
+                       echo "-------- Docker Image Scanning --------"
+                       trivy image datastore:"${App_Version}"
+                       echo "-------- Docker Image Scan Complete --------"
+                    '''
+                }
+//                 script {
+//                     dockerImageScan(
+//                         project: "datastore",
+//                         imageTag: "v1.2",
+//                         hubUser: "8072388539"
+//                     )
                 }
             }
         }
