@@ -63,12 +63,19 @@ pipeline {
         stage("image-scan") {
             steps {
                 script {
-                    dockerImageScan(
-                        project: "datastore",
-                        imageTag: "${App_Version}",
-                        hubUser: "8072388539"
-                    )
+                    sh '''
+                       echo "-------- Docker Image Scanning --------"
+                       trivy image datastore:"${App_Version}"
+                       echo "-------- Docker Image Scan Complete --------"
+                    '''
                 }
+//                 script {
+//                     dockerImageScan(
+//                         project: "datastore",
+//                         imageTag: "${App_Version}",
+//                         hubUser: "8072388539"
+//                     )
+//                 }
             }
         }
         stage('image-push') {
