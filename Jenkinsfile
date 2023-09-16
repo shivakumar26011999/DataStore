@@ -95,6 +95,15 @@ pipeline {
                 '''
             }
         }
+        stage('removing-image') {
+           steps {
+                 sh '''
+                     echo "-------- Removing Docker Image To Save Memory --------"
+                     docker image prune -a -f
+                     echo "-------- Docker Images Removed --------"
+                 '''
+           }
+        }
         stage('checkout-k8s-config') {
             steps {
                 sh '''
