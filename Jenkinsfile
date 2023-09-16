@@ -75,7 +75,7 @@ pipeline {
 //                         imageTag: "v1.2",
 //                         hubUser: "8072388539"
 //                     )
-                }
+//                }
             }
         }
         stage('image-push') {
