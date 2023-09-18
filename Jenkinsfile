@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS=credentials('dockerhub')
         GITHUB_CREDENTIALS=credentials('github')
+        JFROG_ACCESS_TOKEN=credentials('jfrog')
     }
     parameters {
         choice(name: 'Action', choices: "create\ndelete", description: "Choose create/delete")
@@ -37,16 +38,27 @@ pipeline {
                 '''
             }
         }
-        stage('static-code-analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                sh '''
-                    echo "-------- Static Code Analysis --------"
-                    mvn sonar:sonar
-                    echo "-------- Static Code Analysis Complete --------"
-                '''
-                }
-            }
+//         stage('static-code-analysis') {
+//             steps {
+//                 withSonarQubeEnv('sonarqube') {
+//                 sh '''
+//                     echo "-------- Static Code Analysis --------"
+//                     mvn sonar:sonar
+//                     echo "-------- Static Code Analysis Complete --------"
+//                 '''
+//                 }
+//             }
+//         }
+        stage('uploading-artifacts-to-jfrog') {
+           steps {
+               script {
+                    sh '''
+                        echo "-------- Uploading artifact to JFrog --------"
+                        jf rt upload url http://13.235.2.221:8082/artifactory/ --access-token $JFROG_ACCESS_TOKEN target/datastore-*.jar datastore/
+                        echo "-------- Artifact uploaded --------"
+                    '''
+               }
+           }
         }
         stage('image-build') {
             steps {
@@ -68,14 +80,7 @@ pipeline {
                        trivy image datastore:"${App_Version}"
                        echo "-------- Docker Image Scan Complete --------"
                     '''
-                }
-//                 script {
-//                     dockerImageScan(
-//                         project: "datastore",
-//                         imageTag: "v1.2",
-//                         hubUser: "8072388539"
-//                     )
-//                }
+              }
             }
         }
         stage('image-push') {
