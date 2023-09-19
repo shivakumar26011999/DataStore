@@ -51,12 +51,16 @@ pipeline {
 //         }
         stage('uploading-artifacts-to-jfrog') {
            steps {
-               script {
-                    sh '''
-                        echo "-------- Uploading artifact to JFrog --------"
-                        jf rt upload url http://13.235.2.221:8082/artifactory/ --access-token $JFROG_ACCESS_TOKEN target/datastore-*.jar datastore/
-                        echo "-------- Artifact uploaded --------"
-                    '''
+               rtUpload {
+                   serverId: "jfrog",
+                   spec: """{
+                        "files": [
+                           {
+                               "pattern": "./target/datastore-*.jar",
+                               "target": "datastore/"
+                           }
+                        ]
+                   }"""
                }
            }
         }
