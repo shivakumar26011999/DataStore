@@ -52,7 +52,7 @@ pipeline {
         stage('uploading-artifacts-to-jfrog') {
            steps {
                rtUpload {
-                   serverId: "jfrog",
+                   serverId: 'jfrog',
                    spec: """{
                         "files": [
                            {
