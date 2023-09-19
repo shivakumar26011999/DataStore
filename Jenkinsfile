@@ -53,14 +53,14 @@ pipeline {
            steps {
                rtUpload {
                    serverId: 'jfrog',
-                   spec: """{
+                   spec: '''{
                         "files": [
                            {
                                "pattern": "./target/datastore-*.jar",
                                "target": "datastore/"
                            }
                         ]
-                   }"""
+                   }'''
                }
            }
         }
