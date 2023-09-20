@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS=credentials('dockerhub')
         GITHUB_CREDENTIALS=credentials('github')
-        JFROG_ACCESS_TOKEN=credentials('jfrog')
+        JFROG_CREDENTIALS=credentials('jfrog-user')
     }
     parameters {
         choice(name: 'Action', choices: "create\ndelete", description: "Choose create/delete")
@@ -53,7 +53,7 @@ pipeline {
             steps {
                 sh '''
                     echo "-------- Pushing Artifacts to Repository --------"
-                    curl -X PUT -u admin:SHivakumar3@ -T ./target/datastore-*.jar http://13.232.104.225:8082/artifactory/datastore/
+                    curl -X PUT -u $JFROG_CREDENTIALS_USR:$JFROG_CREDENTIALS_PSW -T ./target/datastore-*.jar http://13.232.104.225:8082/artifactory/datastore/
                     echo "-------- Pushed Artifacts to Repository --------"
                 '''
             }
@@ -78,7 +78,7 @@ pipeline {
                        trivy image datastore:"${App_Version}"
                        echo "-------- Docker Image Scan Complete --------"
                     '''
-              }
+                }
             }
         }
         stage('image-push') {
