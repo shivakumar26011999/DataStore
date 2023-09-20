@@ -55,6 +55,7 @@ pipeline {
                     echo "-------- Pushing Artifacts to Repository --------"
                     curl -X PUT -u admin:SHivakumar3@ -T ./target/datastore-*.jar http://13.232.104.225:8082/artifactory/datastore/
                     echo "-------- Pushed Artifacts to Repository --------"
+                '''
             }
         }
         stage('image-build') {
