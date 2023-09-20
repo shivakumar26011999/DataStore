@@ -130,15 +130,15 @@ pipeline {
 //             }
 //         }
     }
-    post {
-        always {
-            script {
-                echo "-------- cleaning workspace --------"
-                cleanupWorkspace()
-                echo "-------- cleaning workspace complete --------"
-            }
-        }
-    }
+//     post {
+//         always {
+//             script {
+//                 echo "-------- cleaning workspace --------"
+//                 cleanupWorkspace()
+//                 echo "-------- cleaning workspace complete --------"
+//             }
+//         }
+//     }
 }
 
 def cleanupWorkspace() {
