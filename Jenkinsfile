@@ -144,6 +144,5 @@ pipeline {
 def cleanupWorkspace() {
     sh '''
         rm -rf ${env.WORKSPACE}/*
-        set -x
     '''
 }
