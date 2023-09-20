@@ -107,27 +107,43 @@ pipeline {
                  '''
            }
         }
-        stage('checkout-k8s-config') {
-            steps {
-                sh '''
-                    cd ..
-                '''
-                git 'https://github.com/shivakumar26011999/DataStoreK8sConfig.git'
-            }
-        }
-        stage('updating-k8s-config') {
-            steps {
-                sh '''
-                    echo "-------- Updating kubernetes config file --------"
-                    rm -rf target
-                    sed -i "s/datastore:.*/datastore:${App_Version}/" deployment.yaml
-                    git add .
-                    git commit -am "K8S configuration updated with new image version - ${App_Version}"
-                    git remote add origin https://$GITHUB_CREDENTIALS_USR:$GITHUB_CREDENTIALS_PSW@github.com/shivakumar26011999/DataStoreK8sConfig.git
-                    git remote set-url origin https://$GITHUB_CREDENTIALS_USR:$GITHUB_CREDENTIALS_PSW@github.com/shivakumar26011999/DataStoreK8sConfig.git
-                    git push -u origin master
-                '''
+//         stage('checkout-k8s-config') {
+//             steps {
+//                 sh '''
+//                     cd ..
+//                 '''
+//                 git 'https://github.com/shivakumar26011999/DataStoreK8sConfig.git'
+//             }
+//         }
+//         stage('updating-k8s-config') {
+//             steps {
+//                 sh '''
+//                     echo "-------- Updating kubernetes config file --------"
+//                     rm -rf target
+//                     sed -i "s/datastore:.*/datastore:${App_Version}/" deployment.yaml
+//                     git add .
+//                     git commit -am "K8S configuration updated with new image version - ${App_Version}"
+//                     git remote add origin https://$GITHUB_CREDENTIALS_USR:$GITHUB_CREDENTIALS_PSW@github.com/shivakumar26011999/DataStoreK8sConfig.git
+//                     git remote set-url origin https://$GITHUB_CREDENTIALS_USR:$GITHUB_CREDENTIALS_PSW@github.com/shivakumar26011999/DataStoreK8sConfig.git
+//                     git push -u origin master
+//                 '''
+//             }
+//         }
+    }
+    post {
+        always {
+            script {
+                echo "-------- cleaning workspace --------"
+                cleanupWorkspace()
+                echo "-------- cleaning workspace complete --------"
             }
         }
     }
+}
+
+def cleanupWorkspace() {
+    sh '''
+        rm -rf ${env.WORKSPACE}/*
+        set -x
+    '''
 }
