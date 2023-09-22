@@ -57,7 +57,7 @@ pipeline {
         stage('image-build') {
             steps {
                 script {
-                     dockerImageBuild("datastore", "${App_Version}", "latest")
+                     dockerImageBuild("datastore","${App_Version}","latest")
                 }
             }
         }
