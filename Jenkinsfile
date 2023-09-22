@@ -41,24 +41,23 @@ pipeline {
 //                 }
 //             }
 //         }
-        stage('uploading-artifacts-to-jfrog') {
-            steps {
-                sh '''
-                    echo "-------- Pushing Artifacts to Repository --------"
-                    curl -X PUT -u $JFROG_CREDENTIALS_USR:$JFROG_CREDENTIALS_PSW -T ./target/datastore-*.jar http://13.232.104.225:8082/artifactory/datastore/
-                    echo "-------- Pushed Artifacts to Repository --------"
-                '''
-            }
-        }
+//         stage('uploading-artifacts-to-jfrog') {
+//             steps {
+//                 sh '''
+//                     echo "-------- Pushing Artifacts to Repository --------"
+//                     curl -X PUT -u $JFROG_CREDENTIALS_USR:$JFROG_CREDENTIALS_PSW -T ./target/datastore-*.jar http://13.232.104.225:8082/artifactory/datastore/
+//                     echo "-------- Pushed Artifacts to Repository --------"
+//                 '''
+//             }
+//         }
         stage('image-build') {
             steps {
                 script {
-                    sh '''
-                        echo "-------- Building Docker Image --------"
-                        docker build -t datastore:"${App_Version}" .
-                        docker build -t datastore:latest .
-                        echo "-------- Building Docker Complete --------"
-                    '''
+                     dockerImageBuild(
+                                appName: "datastore",
+                                appVersion: ${App_Version},
+                                commonVersion: "latest"
+                     )
                 }
             }
         }
