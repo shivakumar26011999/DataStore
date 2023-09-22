@@ -20,14 +20,14 @@ pipeline {
                 )
             }
         }
-        stage('build') {
+        stage('maven build') {
             steps {
                 script {
                     mavenBuild()
                 }
             }
         }
-        stage('test') {
+        stage('maven test') {
             steps {
                 script {
                     mavenTest()
@@ -54,38 +54,28 @@ pipeline {
 //                 '''
 //             }
 //         }
-        stage('image-build') {
+        stage('docker image build') {
             steps {
                 script {
                      dockerImageBuild("datastore","${App_Version}","latest")
                 }
             }
         }
-        stage("image-scan") {
+        stage("docker image scan") {
             steps {
                 script {
                     dockerImageScan("datastore","${App_Version}","8072388539")
                 }
             }
         }
-        stage('image-push') {
+        stage('docker image push') {
             steps {
-                sh '''
-                    echo "-------- Pushing Docker Image To DockerHub --------"
-                    echo \'Logging to DockerHub\'
-                    docker login -u $DOCKERHUB_CREDENTIALS_USR --password $DOCKERHUB_CREDENTIALS_PSW
-
-                    docker tag datastore:latest 8072388539/datastore:latest
-                    docker push 8072388539/datastore:latest
-
-                    docker tag datastore:"${App_Version}" 8072388539/datastore:"${App_Version}"
-                    docker push 8072388539/datastore:"${App_Version}"
-                    docker image prune --all
-                    echo "-------- Docker Image Pushed --------"
-                '''
+                script {
+                    dockerImagePush("$DOCKERHUB_CREDENTIALS_USR", "$DOCKERHUB_CREDENTIALS_PSW", "datastore", "${App_Version}")
+                }
             }
         }
-        stage('removing-image') {
+        stage('removing unused images') {
            steps {
                script {
                     cleaningDockerImages()
