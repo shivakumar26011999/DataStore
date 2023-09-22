@@ -22,12 +22,16 @@ pipeline {
         }
         stage('build') {
             steps {
-                 mavenBuild()
+                script {
+                    mavenBuild()
+                }
             }
         }
         stage('test') {
             steps {
-                mavenTest()
+                script {
+                    mavenTest()
+                }
             }
         }
 //         stage('static-code-analysis') {
@@ -53,11 +57,7 @@ pipeline {
         stage('image-build') {
             steps {
                 script {
-                     dockerImageBuild(
-                                appName: "datastore",
-                                appVersion: ${App_Version},
-                                commonVersion: "latest"
-                     )
+                     dockerImageBuild("datastore", "${App_Version}", "latest")
                 }
             }
         }
