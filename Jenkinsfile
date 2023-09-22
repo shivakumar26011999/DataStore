@@ -64,7 +64,7 @@ pipeline {
         stage("image-scan") {
             steps {
                 script {
-                    dockerImageScan("dockerstore","${App_Version}","8072388539")
+                    dockerImageScan("datastore","${App_Version}","8072388539")
                 }
             }
         }
