@@ -44,7 +44,7 @@ pipeline {
 //                     curl -X PUT -u $JFROG_CREDENTIALS_USR:$JFROG_CREDENTIALS_PSW -T ./target/datastore-*.jar http://13.232.104.225:8082/artifactory/datastore/
 //                     echo "-------- Pushed Artifacts to Repository --------"
 //                 '''
-//             }
+            }
         }
         stage('docker image build') {
             steps {
