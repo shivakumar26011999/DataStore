@@ -27,11 +27,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                sh '''
-                    echo "-------- Executing Testcases --------"
-                    mvn test
-                    echo "-------- Testcase Execution Complete --------"
-                '''
+                mavenTest()
             }
         }
 //         stage('static-code-analysis') {
