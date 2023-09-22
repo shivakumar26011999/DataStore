@@ -34,15 +34,18 @@ pipeline {
                 }
             }
         }
-//         stage('uploading-artifacts-to-jfrog') {
-//             steps {
+        stage('uploading-artifacts-to-jfrog') {
+            steps {
+                 script {
+                     artifactsToJfrog($JFROG_CREDENTIALS_USR, $JFROG_CREDENTIALS_PSW, "./target/datastore-*.jar", "http://13.232.104.225:8082/artifactory/datastore/")
+                 }
 //                 sh '''
 //                     echo "-------- Pushing Artifacts to Repository --------"
 //                     curl -X PUT -u $JFROG_CREDENTIALS_USR:$JFROG_CREDENTIALS_PSW -T ./target/datastore-*.jar http://13.232.104.225:8082/artifactory/datastore/
 //                     echo "-------- Pushed Artifacts to Repository --------"
 //                 '''
 //             }
-//         }
+        }
         stage('docker image build') {
             steps {
                 script {
