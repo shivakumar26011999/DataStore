@@ -64,11 +64,7 @@ pipeline {
         stage("image-scan") {
             steps {
                 script {
-                    sh '''
-                       echo "-------- Docker Image Scanning --------"
-                       trivy image datastore:"${App_Version}"
-                       echo "-------- Docker Image Scan Complete --------"
-                    '''
+                    dockerImageScan("dockerstore","${App_Version}","8072388539")
                 }
             }
         }
