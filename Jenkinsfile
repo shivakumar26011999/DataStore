@@ -22,11 +22,7 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh '''
-                    echo "-------- Creating Jar --------"
-                    mvn clean package
-                    echo "-------- Jar Creation Complete --------"
-                '''
+                 mavenBuild()
             }
         }
         stage('test') {
