@@ -34,6 +34,14 @@ pipeline {
                 }
             }
         }
+        stage('static code analysis') {
+            steps {
+                script {
+                    def SonarQubecredentialsId = 'sonarqube'
+                    staticCodeAnalysis(SonarQubecredentialsId)
+                }
+            }
+        }
         stage('uploading artifacts to jfrog') {
             steps {
                  script {
