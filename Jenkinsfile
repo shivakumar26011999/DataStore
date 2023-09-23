@@ -45,7 +45,7 @@ pipeline {
         stage('uploading artifacts to jfrog') {
             steps {
                  script {
-                     artifactsToJfrog("$JFROG_CREDENTIALS_USR", "$JFROG_CREDENTIALS_PSW", "./target/datastore-*.jar", "http://65.2.29.149:8082/artifactory/datastore/")
+                     artifactsToJfrog("$JFROG_CREDENTIALS_USR", "$JFROG_CREDENTIALS_PSW", "./target/datastore-*.jar", "http://13.234.35.171:8082/artifactory/datastore/")
                  }
             }
         }
