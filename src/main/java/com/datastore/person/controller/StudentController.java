@@ -17,6 +17,7 @@ public class StudentController {
     @RequestMapping(method = RequestMethod.POST, path = "/student/post")
     private ResponseEntity<String> postStudent(@RequestBody Student student) {
         studentList.add(student);
+        System.out.println();
         return ResponseEntity.status(HttpStatus.OK).body("Student successfully posted.");
     }
 
